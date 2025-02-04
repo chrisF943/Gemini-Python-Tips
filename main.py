@@ -5,12 +5,15 @@ import google.generativeai as genai
 import datetime
 import logging
 import config
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configure logging
 log_handlers = [logging.StreamHandler()]
 
 if config.SAVE_LOGS:
-    log_handlers.append(logging.FileHandler("app.log"))
+    log_handlers.append(logging.FileHandler("logs/app.log"))
 
 logging.basicConfig(
     level=logging.INFO,
@@ -23,15 +26,7 @@ day = today.weekday()
 
 
 def send_prompt():
-    """
-    Sends a prompt to the Gemini 1.5 Flash model asking for 3 small, intermediate
-    to advanced Python tips and tricks to make projects better and more efficient.
-    The tips should be unique and different each time the prompt is asked.
-
-    Returns:
-        str: The generated response from the model.
-    """
-    if day == 5:
+    if day == 1:
         logging.info("Sending prompt...")
         genai.configure(api_key=os.getenv("API_KEY"))
 
@@ -53,15 +48,6 @@ def send_prompt():
 
 
 def send_email(response):
-    """
-    Sends the generated response to the recipient via email.
-
-    Args:
-        response (str): The generated response from the Gemini 1.5 Flash model.
-
-    Raises:
-        Exception: Any error that may occur while sending the email.
-    """
     logging.info("Sending email...")
     msg = MIMEText(response, "plain", "utf-8")
     msg["Subject"] = "Your Daily Python Tips"
@@ -79,6 +65,8 @@ def send_email(response):
                 connection.login(os.getenv("SENDER"), os.getenv("PASSWORD"))
                 connection.sendmail(os.getenv("SENDER"), os.getenv("RECIPIENT"), msg.as_string())
 
+            logging.info("send_email() executed successfully.")
+
         elif chosen_provider in config.TLS_PROVIDER_HOSTS:
             smtp_host = config.TLS_PROVIDER_HOSTS[chosen_provider]
             smtp_port = config.PROVIDER_PORTS["tls"]
@@ -89,13 +77,14 @@ def send_email(response):
                 connection.login(os.getenv("SENDER"), os.getenv("PASSWORD"))
                 connection.sendmail(os.getenv("SENDER"), os.getenv("RECIPIENT"), msg.as_string())
 
+            logging.info("send_email() executed successfully.")
+
         else:
             logging.warning("Chosen provider not recognized, see configuration file for supported providers.")
 
-        logging.info("Email sent successfully.")
-
     except Exception as e:
         logging.error(f"An error occurred: {e}")
+        logging.error("send_email() failed.")
 
 
 if __name__ == "__main__":

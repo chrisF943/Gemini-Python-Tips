@@ -12,49 +12,56 @@ load_dotenv()
 # Configure logging
 log_handlers = [logging.StreamHandler()]
 
+# Add log saving to config if SAVE_LOGS is True
 if config.SAVE_LOGS:
     log_handlers.append(logging.FileHandler("logs/app.log"))
 
+# Basic logging configuration
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(message)s",
     handlers=log_handlers
 )
 
+# Get current day as integer
 today = datetime.date.today()
 day = today.weekday()
 
 
 def send_prompt():
+    # Set desired interval for execution, where 0 = Monday, 6 = Sunday
     if day == 1:
-        logging.info("Sending prompt...")
-        genai.configure(api_key=os.getenv("API_KEY"))
+        try:
+            logging.info("Sending prompt...")
+            genai.configure(api_key=os.getenv("API_KEY"))
 
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        prompt = model.generate_content(
-            """
-            Give me 3 small, intermediate to advanced Python tips and tricks to make
-            my projects better and more efficient. Please give me exactly 3 unique, different
-            tips everytime you are asked this prompt.
-    
-            """
-        )
-        generated_response = prompt.text
-        logging.info("send_prompt() executed successfully.")
-        return generated_response
+            model = genai.GenerativeModel("gemini-1.5-flash")
+            prompt = model.generate_content(
+                """
+                Give me 3 small, intermediate to advanced Python tips and tricks to make
+                my projects better and more efficient. Please give me exactly 3 unique, different
+                tips everytime you are asked this prompt.
+                """
+            )
+            generated_response = prompt.text
+            logging.info("send_prompt() executed successfully.")
+            return generated_response
+
+        except Exception as e:
+            logging.error(f"An error occurred: {e}")
+            logging.error("send_prompt() failed.")
     else:
         logging.info("Skipped execution today.")
         return None
 
 
 def send_email(response):
-    logging.info("Sending email...")
-    msg = MIMEText(response, "plain", "utf-8")
-    msg["Subject"] = "Your Daily Python Tips"
-    msg["From"] = os.getenv("SENDER")
-    msg["To"] = os.getenv("RECIPIENT")
-
     try:
+        logging.info("Sending email...")
+        msg = MIMEText(response, "plain", "utf-8")
+        msg["Subject"] = "Your Daily Python Tips"
+        msg["From"] = os.getenv("SENDER")
+        msg["To"] = os.getenv("RECIPIENT")
         chosen_provider = config.CHOSEN_PROVIDER.lower()
         if chosen_provider in config.SSL_PROVIDER_HOSTS:
             smtp_host = config.SSL_PROVIDER_HOSTS[chosen_provider]

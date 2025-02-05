@@ -3,7 +3,6 @@ SSL_PROVIDER_HOSTS = {
     "aol": "smtp.aol.com",
     "att": "smtp.att.net",
     "verizon": "smtp.verizon.net",
-    "comcast": "smtp.comcast.net"
 }
 
 TLS_PROVIDER_HOSTS = {
@@ -17,6 +16,6 @@ PROVIDER_PORTS = {
     "tls": 587
 }
 
-CHOSEN_PROVIDER = "yahoo"
+CHOSEN_PROVIDER = ""
 
-SAVE_LOGS = True
+SAVE_LOGS = False

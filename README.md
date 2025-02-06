@@ -12,13 +12,17 @@ Python tips and tricks automatically emailed to the user at an interval of their
 
 ## Goals
 
-My goal for this project is to enhance my familiarity using LLM's with Python, doing so with practical use cases.
+My motivation for this project was to create a simple, AI-powered learning tool to help budding developers or anyone
+just wanting to learn a couple new bits of Python. I hope other's find this program useful and are able to learn
+something new from it, if that is the case, then I view this project as a success.
 
 ## Setup
 
 1. Open your command line or terminal and clone the repository:
-   `git clone https://github.com/chrisF943/Gemini-Python-Tips.git`, or if you have GitHub Desktop select "Open with
-   GitHub Desktop" from the green code dropdown.
+   ```bash
+   git clone https://github.com/chrisF943/Gemini-Python-Tips.git
+   ```
+    - If you have GitHub Desktop select "Open with GitHub Desktop" from the green code dropdown.
 2. If you do not already have one, get a Gemini API
    key [here](https://ai.google.dev/gemini-api/docs/api-key#macos---zsh).
 3. Create a .env file in the root directory of the project and fill in required credentials.
@@ -31,15 +35,40 @@ My goal for this project is to enhance my familiarity using LLM's with Python, d
 
 ## Usage
 
-1. Navigate to the directory where you have cloned the project: `cd path/to/project`.
-2. run `python3 -m venv .venv`
-3. On Windows, run `.\.venv\Scripts\activate` or on Mac/Linux, run `source .venv/bin/activate`.
-    1. If you already have a virtual environment (Some IDE's may create one for you when opening the project), run
+1. Navigate to the directory where you have cloned the project:
+   ```bash
+   cd path/to/project
+   ```
+2. Create a virtual environment (You can skip to the next step if you already have one):
+   ```bash
+   python3 -m venv .venv
+   ```
+3. Activate your virtual environment:
 
-       `source .venv/bin/activate` on Mac/Linux or `.\.venv\Scripts\activate` on Windows.
-4. Run `pip install -r requirements.txt` to install the required packages.
-    1. *Optional* run `pip list` to verify packages are installed.
-5. Run `python3 main.py`,
-6. When done, run `deactivate` to deactivate the virtual environment.
+   For MacOS/Linux:
+   ```bash
+   source .venv/bin/activate
+   ```
+
+   For Windows:
+   ```bash
+   .\.venv\Scripts\activate
+   ```
+4. Install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+    - *Optional* Verify packages are installed:
+      ```bash
+      pip list
+      ```
+5. Run the program:
+   ```bash
+   python3 main.py
+   ```
+6. When done, deactivate your virtual environment:
+   ```bash
+   deactivate
+   ```
 
 ## Contributing

@@ -29,6 +29,18 @@ day = today.weekday()
 
 
 def send_prompt():
+    """
+        Generates a prompt requesting three unique Python tips and tricks.
+
+        This function checks if the current day matches a predefined execution day.
+        If the condition is met, it initializes the Generative AI model, sends a prompt
+        requesting three unique Python tips, and returns the generated response.
+        If the condition is not met, execution is skipped.
+
+        Returns:
+            str: The generated response containing three Python tips, if executed.
+            None: If execution is skipped or an error occurs.
+        """
     # Set desired interval for execution, where 0 = Monday, 6 = Sunday
     if day == 1:
         try:
@@ -56,6 +68,19 @@ def send_prompt():
 
 
 def send_email(response):
+    """
+        Sends an email containing the given response.
+
+        This function constructs an email with the provided response as the message body.
+        It determines the SMTP provider from the configuration and sends the email using either
+        SSL or TLS encryption based on the provider's settings.
+
+        Parameters:
+            response (str): The message content to be sent via email.
+
+        Raises:
+            Exception: Logs an error if the email fails to send.
+        """
     try:
         logging.info("Sending email...")
         msg = MIMEText(response, "plain", "utf-8")

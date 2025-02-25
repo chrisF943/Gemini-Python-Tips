@@ -70,5 +70,5 @@ something new from it, if that is the case, then I view this project as a succes
    ```bash
    deactivate
    ```
-
-## Contributing
+   
+*Developed on Python 3.12*

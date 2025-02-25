@@ -47,7 +47,7 @@ def send_prompt():
             logging.info("Sending prompt...")
             genai.configure(api_key=os.getenv("API_KEY"))
 
-            model = genai.GenerativeModel("gemini-1.5-flash")
+            model = genai.GenerativeModel(config.CHOSEN_MODEL)
             prompt = model.generate_content(
                 """
                 Give me 3 small, intermediate to advanced Python tips and tricks to make

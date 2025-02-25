@@ -26,19 +26,30 @@ something new from it, if that is the case, then I view this project as a succes
 
 ## Setup
 
-1. Open your command line or terminal and clone the repository:
+1. If you have not already, you must set up SMTP/app usage for your email. It is highly recommended to use
+   an app password instead of your actual password whenever possible.
+
+   Please refer to the appropriate link below for your email provider:
+   - [Outlook](https://mailtrap.io/blog/outlook-smtp/)
+   - [Yahoo](https://mailtrap.io/blog/yahoo-smtp/)
+   - [iCloud](https://mailtrap.io/blog/icloud-smtp/)
+   - [Gmail](https://mailtrap.io/blog/gmail-smtp/)
+   - [AOL](https://mailtrap.io/blog/aol-smtp/)
+   - [ATT/Verizon](https://mailmeteor.com/smtp/att-smtp-settings)
+
+2. Open your command line or terminal and clone the repository:
    ```bash
    git clone https://github.com/chrisF943/Gemini-Python-Tips.git
    ```
-    - If you have GitHub Desktop select "Open with GitHub Desktop" from the green code dropdown.
-2. If you do not already have one, get a Gemini API
+   - If you have GitHub Desktop select "Open with GitHub Desktop" from the green code dropdown.
+3. If you do not already have one, get a Gemini API
    key [here](https://ai.google.dev/gemini-api/docs/api-key).
-3. Create a .env file in the root directory of the project and fill in required credentials.
-4. Open `config.py`, choose a provider you would like to use from the dictionaries and set `CHOSEN_PROVIDER`
+4. Create a .env file in the root directory of the project and fill in required credentials.
+5. Open `config.py`, choose a provider you would like to use from the dictionaries and set `CHOSEN_PROVIDER`
 
    accordingly, for example: `CHOSEN_PROVIDER = "gmail"`.
 
-5. Also in `config.py`, set `SAVE_LOGS` to `True` if you would like to save logs to a file, by default this is set to
+6. Also in `config.py`, set `SAVE_LOGS` to `True` if you would like to save logs to a file, by default this is set to
    `False`.
 
 ## Usage

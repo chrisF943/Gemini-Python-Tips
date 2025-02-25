@@ -18,6 +18,10 @@ PROVIDER_PORTS = {
 
 CHOSEN_PROVIDER = ""
 
+# To see available models, refer to: https://ai.google.dev/gemini-api/docs/models/gemini
+# Please keep in mind the rate limit for the model you choose,
+# which can be found here: https://ai.google.dev/gemini-api/docs/rate-limits
+# Rate limits depend on the tier of your account
 CHOSEN_MODEL = ""
 
 SAVE_LOGS = False

@@ -1,14 +1,22 @@
 # Automating Python learning with Gemini
 
-Learn new bits of Python with the help of Google Gemini. This project is currently being worked on and developed.
+Learn new bits of Python with the help of Google Gemini! Leveraging the power of ever-evolving AI, this project
+introduces users to automated, AI-powered learning.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Goals](#goals)
+- [Setup](#setup)
+- [Usage](#usage)
 
 ## Overview
 
 Google Gemini is an advanced LLM designed for generating and processing text. This project creates a unique learning
-tool by utilizing the Google Gemini API in Python to send a prompt of the user's choice to the Gemini 1.5 Flash model
-and the subsequent response is emailed to a designated address. The Gemini 1.5 Flash model is optimized for generating
-quick, accurate text responses, making it ideal for automating learning tasks. The purpose of this app is to have new
-Python tips and tricks automatically emailed to the user at an interval of their choice.
+tool by utilizing the Google Gemini API in Python to send a prompt of the user's choice to a Gemini model of the user's
+choice, and the subsequent response is emailed to a designated address. The Gemini Flash models are optimized for
+generating quick, accurate text responses, making it ideal for automating learning tasks. The purpose of this app is to
+have new Python tips and tricks automatically emailed to the user at an interval of their choice.
 
 ## Goals
 
@@ -24,7 +32,7 @@ something new from it, if that is the case, then I view this project as a succes
    ```
     - If you have GitHub Desktop select "Open with GitHub Desktop" from the green code dropdown.
 2. If you do not already have one, get a Gemini API
-   key [here](https://ai.google.dev/gemini-api/docs/api-key#macos---zsh).
+   key [here](https://ai.google.dev/gemini-api/docs/api-key).
 3. Create a .env file in the root directory of the project and fill in required credentials.
 4. Open `config.py`, choose a provider you would like to use from the dictionaries and set `CHOSEN_PROVIDER`
 
@@ -70,5 +78,5 @@ something new from it, if that is the case, then I view this project as a succes
    ```bash
    deactivate
    ```
-   
+
 *Developed on Python 3.12*

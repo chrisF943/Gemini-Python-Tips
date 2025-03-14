@@ -118,6 +118,12 @@ def send_email(response):
                     padding: 15px;
                     margin-bottom: 20px;
                 }}
+                .tip-title {{
+                    display: block;
+                    margin-bottom: 10px;
+                    font-size: 1.1em;
+                    color: #007bff;
+                }}
                 code {{
                     background-color: #f1f1f1;
                     padding: 2px 6px;
@@ -164,7 +170,7 @@ def send_email(response):
             </div>
             {format_tips(response)}
             <div class="footer">
-            <p>Generated with ❤️ by Gemini-Python-Tips</p>
+            <p>Generated with ❤️ by Gemini-Python-Tips, created by Christopher Faris</p>
         <p>Visit our <a href="https://github.com/chrisF943/Gemini-Python-Tips">GitHub repository</a> for more information</p>
             </div>
         </body>
@@ -233,6 +239,14 @@ def format_tips(response):
     for tip in tips:
         if tip.strip():
             formatted_tip = tip
+
+            # Handle title formatting (text between ** and :)
+            title_pattern = r'\*\*(.*?):\*\*'
+            formatted_tip = re.sub(
+                title_pattern,
+                lambda m: f'<strong class="tip-title">{m.group(1)}:</strong><br>',
+                formatted_tip
+            )
 
             # Find all code blocks (text between triple backticks with optional language specification)
             code_block_pattern = r'```(?:python)?\n(.*?)```'

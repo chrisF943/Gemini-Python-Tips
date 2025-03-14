@@ -9,7 +9,7 @@ import logging
 import config
 from dotenv import load_dotenv
 
-# TODO: Style and format email
+# TODO: repackage code into modules
 
 load_dotenv()
 
@@ -27,48 +27,42 @@ logging.basicConfig(
     handlers=log_handlers
 )
 
-# Get current day as integer
-today = datetime.date.today()
-day = today.weekday()
+
+# Get current day as integer (for setting run interval based on day of week, if needed)
+# today = datetime.date.today()
+# day = today.weekday()
 
 
 def send_prompt():
     """
-        Generates a prompt requesting three unique Python tips and tricks.
+    Generates a prompt requesting three unique Python tips and tricks.
 
-        This function checks if the current day matches a predefined execution day.
-        If the condition is met, it initializes the Generative AI model, sends a prompt
-        requesting three unique Python tips, and returns the generated response.
-        If the condition is not met, execution is skipped.
+    This function initializes the Generative AI model, sends a prompt
+    requesting three unique Python tips, and returns the generated response.
 
-        Returns:
-            str: The generated response containing three Python tips, if executed.
-            None: If execution is skipped or an error occurs.
-        """
-    # Set desired interval for execution, where 0 = Monday, 6 = Sunday
-    if day == 4:
-        try:
-            logging.info("Sending prompt...")
-            genai.configure(api_key=os.getenv("API_KEY"))
+    Returns:
+        str: The generated response containing three Python tips.
+        None: If an error occurs.
+    """
+    try:
+        logging.info("Sending prompt...")
+        genai.configure(api_key=os.getenv("API_KEY"))
 
-            model = genai.GenerativeModel(config.CHOSEN_MODEL)
-            prompt = model.generate_content(
-                """
-                Give me 3 small, intermediate to advanced Python tips and tricks to make
-                my projects better and more efficient. Please give me exactly 3 unique, different
-                tips everytime you are asked this prompt.
-                """
-            )
-            generated_response = prompt.text
-            logging.info("send_prompt() executed successfully.")
-            return generated_response
+        model = genai.GenerativeModel(config.CHOSEN_MODEL)
+        prompt = model.generate_content(
+            """
+            Give me 3 small, intermediate to advanced Python tips and tricks to make
+            my projects better and more efficient. Please give me exactly 3 unique, different
+            tips everytime you are asked this prompt.
+            """
+        )
+        generated_response = prompt.text
+        logging.info("send_prompt() executed successfully.")
+        return generated_response
 
-        except Exception as e:
-            logging.error(f"An error occurred: {e}")
-            logging.error("send_prompt() failed.")
-    else:
-        logging.info("Skipped execution today.")
-        return None
+    except Exception as e:
+        logging.error(f"An error occurred: {e}")
+        logging.error("send_prompt() failed.")
 
 
 def send_email(response):
@@ -166,7 +160,7 @@ def send_email(response):
         <body>
             <div class="header">
                 <h2>Your Daily Python Tips</h2>
-                <div class="intro">Here are your daily Python tips and tricks, brought to you by Gemini-Python-Tips</div>
+                <div class="intro">Here are your daily Python tips and tricks, happy learning!</div>
             </div>
             {format_tips(response)}
             <div class="footer">

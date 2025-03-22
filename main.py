@@ -48,13 +48,24 @@ def send_prompt():
         logging.info("Sending prompt...")
         genai.configure(api_key=os.getenv("API_KEY"))
 
+        current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
         model = genai.GenerativeModel(config.CHOSEN_MODEL)
         prompt = model.generate_content(
-            """
-            Give me 3 small, intermediate to advanced Python tips and tricks to make
-            my projects better and more efficient. Please give me exactly 3 unique, different
-            tips everytime you are asked this prompt.
-            """
+            f"""
+            Give me 3 small, intermediate to advanced Python tips and tricks for improved 
+            and more efficient code. The tips should contain concepts and functions that have not been 
+            in a previous response (unique to this response). For each tip provide a brief example code snippet. 
+            Please do not use any markdown formatting in your response except for code blocks. 
+            Current time: {current_time}
+            """,
+            generation_config=genai.types.GenerationConfig(
+                temperature=0.7,
+                candidate_count=1,
+                top_p=0.8,
+                top_k=40,
+                stop_sequences=None,
+            )
         )
         generated_response = prompt.text
         logging.info("send_prompt() executed successfully.")
@@ -165,7 +176,7 @@ def send_email(response):
             {format_tips(response)}
             <div class="footer">
             <p>Generated with ❤️ by Gemini-Python-Tips, created by Christopher Faris</p>
-        <p>Visit our <a href="https://github.com/chrisF943/Gemini-Python-Tips">GitHub repository</a> for more information</p>
+        <p>Visit my <a href="https://github.com/chrisF943/">GitHub</a> or my <a href="https://chrisfaris.netlify.app/">Portfolio</a>to see more!</p>
             </div>
         </body>
         </html>
@@ -234,13 +245,12 @@ def format_tips(response):
         if tip.strip():
             formatted_tip = tip
 
-            # Handle title formatting (text between ** and :)
-            title_pattern = r'\*\*(.*?):\*\*'
-            formatted_tip = re.sub(
-                title_pattern,
-                lambda m: f'<strong class="tip-title">{m.group(1)}:</strong><br>',
-                formatted_tip
-            )
+            # Handle title formatting (looking for "Title: Description" pattern)
+            title_pattern = r'^([^:]+):\s*(.*)$'
+            match = re.match(title_pattern, formatted_tip, re.DOTALL)
+            if match:
+                title, content = match.groups()
+                formatted_tip = f'<strong class="tip-title">{title.strip()}:</strong><br>{content.strip()}'
 
             # Find all code blocks (text between triple backticks with optional language specification)
             code_block_pattern = r'```(?:python)?\n(.*?)```'

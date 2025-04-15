@@ -25,6 +25,7 @@ just wanting to learn a couple new bits of Python. I hope other's find this prog
 something new from it, if that is the case, then I view this project as a success.
 
 ## Setup
+**_It is recommended to use Python 3.9 or later to avoid issues with the `google-genai` package._**
 
 1. If you have not already, you must set up SMTP/app usage for your email. It is highly recommended to use
    an app password instead of your actual password whenever possible.
@@ -137,4 +138,4 @@ Access" and add the relevant application(s)
 7. Under "Alert" choose "Custom", then "Open File" and navigate to and select the job you created
 8. Set the alert time to "At time of event"
 
-*Developed on Python 3.12*
+**_Developed on Python 3.12_**
